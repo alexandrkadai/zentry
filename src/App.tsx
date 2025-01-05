@@ -1,7 +1,7 @@
-const App = () => {
+export default function App() {
   return (
-    <div className="mt-10 flex items-start justify-normal bg-gray-50">App</div>
+    <main className="realtive min-h-screen w-screen overflow-x-hidden">
+      Appilication
+    </main>
   );
-};
-
-export default App;
+}
