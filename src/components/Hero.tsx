@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react';
+import Button from './ui/Button';
 
+import { MousePointer2 } from 'lucide';
 const Hero = () => {
   const [current, setCurrent] = useState(1);
   const [play, setPlay] = useState(false);
@@ -11,11 +13,10 @@ const Hero = () => {
   const handleVideoClick = () => {
     setClicked(true);
     setCurrent((prevIndex) => (prevIndex % 4) + 1);
-    console.log(current);
   };
 
   const handleVideoLoad = () => {
-    setLoadedVid(current);
+    setLoadedVid((prevIndex) => (prevIndex % 4) + 1);
   };
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
@@ -52,12 +53,27 @@ const Hero = () => {
           onLoadedData={handleVideoLoad}
         />
         <video
-          src={getVideoSrc(current % 4)}
+          src={getVideoSrc(current)}
           autoPlay
           loop
           muted
           className="absolute left-0 top-0 size-full object-cover object-center"
         />
+        <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
+          Gaming
+        </h1>
+        <div className="absolute left-0 top-0 z-40 size-full">
+          <div className="mt-24 px-5 sm:px-10">
+            <h1 className="special-font hero-heading text-blue-100">
+              redefine
+            </h1>
+            <p className="mb-5 max-w-64 font-robert-regular capitalize text-blue-100">
+              Enter the metagame layer <br />
+              unleash the paly Economy
+            </p>
+            <Button id="watch-trailer" title="Watch Trailer" className='bg-yellow-300 flex items-center justify-center gap-1 p-2 font-bold' />
+          </div>
+        </div>
       </div>
     </div>
   );
