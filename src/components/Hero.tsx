@@ -7,16 +7,37 @@ import { useGSAP } from '@gsap/react';
 const Hero = () => {
   const [current, setCurrent] = useState(1);
   const [play, setPlay] = useState(false);
-  const [clicked, setClicked] = useState(false);
+  
   const [loadedVid, setLoadedVid] = useState(0);
 
   const nexVidRef = useRef<HTMLVideoElement>(null);
 
+  const triggerGSAPAnimation = () => {
+    gsap.set('#next-video', { visibility: 'visible' });
+    gsap.to('#next-video', {
+      transformOrigin: 'center center',
+      scale: 1,
+      width: '100vw',
+      height: '100vh',
+      duration: 1,
+      ease: 'power1.inOut',
+      onStart: () => nexVidRef.current!.play(),
+    });
+
+    gsap.from('#current-video', {
+      transformOrigin: 'center center',
+      scale: 0,
+      duration: 1.5,
+      ease: "power1.inOut",
+    });
+  };
+
   const handleVideoClick = () => {
-    setClicked(true);
+    
+    triggerGSAPAnimation();
     setTimeout(() => {
-      setClicked(false);
       setCurrent((prevIndex) => (prevIndex % 4) + 1);
+      
     }, 1000);
   };
 
@@ -24,29 +45,10 @@ const Hero = () => {
     setLoadedVid((prevIndex) => (prevIndex % 4) + 1);
   };
 
-
   useGSAP(() => {
-    if (clicked) {
-      gsap.set('#next-video', { visibility: 'visible' });
-
-      gsap.to('#next-video', {
-        transformOrigin: 'center center',
-        scale: 1,
-        width: '100%',
-        height: '100%',
-        duration: 1,
-        ease: 'power1.inOut',
-        // onStart: () => nexVidRef.current.play(),
-      });
-
-      gsap.from('#current-video', {
-        transformOrigin: 'center center',
-        scale: 0,
-        duration: 1.5,
-        ease:"power1.inOut",
-
-      });
-    }
+    
+      triggerGSAPAnimation();
+    
   });
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
@@ -66,6 +68,7 @@ const Hero = () => {
               ref={nexVidRef}
               src={getVideoSrc((current % 4) + 1)}
               loop
+              
               muted
               id="current-video"
               className="size-64 origin-center scale-150 object-cover object-center"
@@ -75,9 +78,10 @@ const Hero = () => {
         </div>
         <video
           ref={nexVidRef}
-          src={getVideoSrc(current + 1)}
+          src={getVideoSrc(current )}
           loop
           muted
+          autoPlay
           id="next-video"
           className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
           onLoadedData={handleVideoLoad}
