@@ -1,23 +1,53 @@
 import { useRef, useState } from 'react';
 import Button from './ui/Button';
+// import { MousePointer2 } from 'lucide';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
-import { MousePointer2 } from 'lucide';
 const Hero = () => {
   const [current, setCurrent] = useState(1);
   const [play, setPlay] = useState(false);
   const [clicked, setClicked] = useState(false);
   const [loadedVid, setLoadedVid] = useState(0);
 
-  const nexVidRef = useRef(null);
+  const nexVidRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoClick = () => {
     setClicked(true);
-    setCurrent((prevIndex) => (prevIndex % 4) + 1);
+    setTimeout(() => {
+      setClicked(false);
+      setCurrent((prevIndex) => (prevIndex % 4) + 1);
+    }, 1000);
   };
 
   const handleVideoLoad = () => {
     setLoadedVid((prevIndex) => (prevIndex % 4) + 1);
   };
+
+
+  useGSAP(() => {
+    if (clicked) {
+      gsap.set('#next-video', { visibility: 'visible' });
+
+      gsap.to('#next-video', {
+        transformOrigin: 'center center',
+        scale: 1,
+        width: '100%',
+        height: '100%',
+        duration: 1,
+        ease: 'power1.inOut',
+        // onStart: () => nexVidRef.current.play(),
+      });
+
+      gsap.from('#current-video', {
+        transformOrigin: 'center center',
+        scale: 0,
+        duration: 1.5,
+        ease:"power1.inOut",
+
+      });
+    }
+  });
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
 
@@ -71,10 +101,17 @@ const Hero = () => {
               Enter the metagame layer <br />
               unleash the paly Economy
             </p>
-            <Button id="watch-trailer" title="Watch Trailer" className='bg-yellow-300 flex items-center justify-center gap-1 p-2 font-bold' />
+            <Button
+              id="watch-trailer"
+              title="Watch Trailer"
+              className="flex items-center justify-center gap-1 bg-yellow-300 p-2 font-bold"
+            />
           </div>
         </div>
       </div>
+      <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
+        Gaming
+      </h1>
     </div>
   );
 };
