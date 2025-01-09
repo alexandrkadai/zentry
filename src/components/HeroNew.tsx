@@ -56,14 +56,11 @@ const HeroNew = () => {
   };
 
   const handleVideoClick = () => {
+    triggerGSAPAnimation();
     setTimeout(() => {
       setCurrent((prevIndex) => (prevIndex % 4) + 1);
       
     }, 1000);
-
-    if (!isAnimating) {
-      triggerGSAPAnimation();
-    }
   };
 
   useGSAP(() => {

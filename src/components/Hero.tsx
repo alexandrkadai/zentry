@@ -13,8 +13,8 @@ const Hero = () => {
   const nexVidRef = useRef<HTMLVideoElement>(null);
 
   const triggerGSAPAnimation = () => {
-    gsap.set('#next-video', { visibility: 'visible' });
-    gsap.to('#next-video', {
+    // gsap.set(nexVidRef.current, { visibility: 'visible' });
+    gsap.to(nexVidRef.current, {
       transformOrigin: 'center center',
       scale: 1,
       width: '100vw',
@@ -43,9 +43,9 @@ const Hero = () => {
     }, 1000);
   };
 
-  useGSAP(() => {
-    triggerGSAPAnimation();
-  });
+  // useGSAP(() => {
+  //   triggerGSAPAnimation();
+  // }, [current]);
 
   const handleVideoLoad = () => {
     setLoadedVid((prevIndex) => (prevIndex % 4) + 1);
@@ -65,7 +65,7 @@ const Hero = () => {
             className="origin-center scale-50 opacity-0 transition-all duration-500 hover:scale-100 hover:opacity-100"
           >
             <video
-              ref={nexVidRef}
+              
               src={getVideoSrc(current === 4 ? 1 : current+1)}
               loop
               muted
@@ -83,18 +83,18 @@ const Hero = () => {
           muted
           autoPlay
           id="next-video"
-          className="absolute-center invisible absolute size-64 object-cover object-center"
+          className="absolute-center  absolute size-64 object-cover object-center"
           onLoadedData={handleVideoLoad}
         />
 
-        <video
+        {/* <video
           src={getVideoSrc(current)}
           autoPlay
           loop
           muted
           className="absolute left-0 top-0 size-full object-cover object-center"
           onLoadedData={handleVideoLoad}
-        />
+        /> */}
 
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
           Gaming
