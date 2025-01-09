@@ -17,7 +17,7 @@ const HeroNew = () => {
     if (isAnimating || !nextVidRef.current || !currentVidRef.current) return;
 
     setIsAnimating(true);
-
+    
     // Set initial states
     gsap.set(nextVidRef.current, {
       visibility: 'visible',
@@ -96,7 +96,6 @@ const HeroNew = () => {
               ref={smallVidRef}
               src={getVideoSrc((current % 4) + 1)}
               loop
-              
               muted
               className="size-64 origin-center scale-150 object-cover object-center"
               onLoadedData={handleVideoLoad}

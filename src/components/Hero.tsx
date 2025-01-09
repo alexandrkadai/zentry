@@ -7,7 +7,7 @@ import { useGSAP } from '@gsap/react';
 const Hero = () => {
   const [current, setCurrent] = useState(1);
   const [play, setPlay] = useState(false);
-  
+  const [click, setClick] = useState(false);
   const [loadedVid, setLoadedVid] = useState(0);
 
   const nexVidRef = useRef<HTMLVideoElement>(null);
@@ -21,35 +21,36 @@ const Hero = () => {
       height: '100vh',
       duration: 1,
       ease: 'power1.inOut',
-      onStart: () => nexVidRef.current!.play(),
+      onStart: () => {nexVidRef.current?.play();},
     });
 
     gsap.from('#current-video', {
       transformOrigin: 'center center',
       scale: 0,
       duration: 1.5,
-      ease: "power1.inOut",
+      ease: 'power1.inOut',
     });
   };
 
+  
+
   const handleVideoClick = () => {
-    
+    setClick(true);
     triggerGSAPAnimation();
     setTimeout(() => {
       setCurrent((prevIndex) => (prevIndex % 4) + 1);
-      
+      setClick(false);
     }, 1000);
   };
+
+  useGSAP(() => {
+    triggerGSAPAnimation();
+});
+
 
   const handleVideoLoad = () => {
     setLoadedVid((prevIndex) => (prevIndex % 4) + 1);
   };
-
-  useGSAP(() => {
-    
-      triggerGSAPAnimation();
-    
-  });
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
 
@@ -68,17 +69,17 @@ const Hero = () => {
               ref={nexVidRef}
               src={getVideoSrc((current % 4) + 1)}
               loop
-              
               muted
               id="current-video"
               className="size-64 origin-center scale-150 object-cover object-center"
               onLoadedData={handleVideoLoad}
             />
           </div>
+
         </div>
         <video
           ref={nexVidRef}
-          src={getVideoSrc(current )}
+          src={getVideoSrc(current)}
           loop
           muted
           autoPlay
@@ -92,6 +93,7 @@ const Hero = () => {
           loop
           muted
           className="absolute left-0 top-0 size-full object-cover object-center"
+          
         />
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
           Gaming
