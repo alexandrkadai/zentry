@@ -21,7 +21,9 @@ const Hero = () => {
       height: '100vh',
       duration: 1,
       ease: 'power1.inOut',
-      onStart: () => {nexVidRef.current?.play();},
+      onStart: () => {
+        nexVidRef.current?.play();
+      },
     });
 
     gsap.from('#current-video', {
@@ -31,8 +33,6 @@ const Hero = () => {
       ease: 'power1.inOut',
     });
   };
-
-  
 
   const handleVideoClick = () => {
     setClick(true);
@@ -45,8 +45,7 @@ const Hero = () => {
 
   useGSAP(() => {
     triggerGSAPAnimation();
-});
-
+  });
 
   const handleVideoLoad = () => {
     setLoadedVid((prevIndex) => (prevIndex % 4) + 1);
@@ -67,34 +66,36 @@ const Hero = () => {
           >
             <video
               ref={nexVidRef}
-              src={getVideoSrc((current % 4) + 1)}
+              src={getVideoSrc(current === 4 ? 1 : current+1)}
               loop
               muted
               id="current-video"
-              className="size-64 origin-center scale-150 object-cover object-center"
+              className="size-64 origin-center scale-150 object-cover object-center z-50"
               onLoadedData={handleVideoLoad}
             />
           </div>
-
         </div>
+
         <video
           ref={nexVidRef}
-          src={getVideoSrc(current)}
+          src={getVideoSrc(current === 4 ? 1 : current+1)}
           loop
           muted
           autoPlay
           id="next-video"
-          className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
+          className="absolute-center invisible absolute size-64 object-cover object-center"
           onLoadedData={handleVideoLoad}
         />
+
         <video
           src={getVideoSrc(current)}
           autoPlay
           loop
           muted
           className="absolute left-0 top-0 size-full object-cover object-center"
-          
+          onLoadedData={handleVideoLoad}
         />
+
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
           Gaming
         </h1>
