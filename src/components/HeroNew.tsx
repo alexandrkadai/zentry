@@ -3,7 +3,7 @@ import Button from './ui/Button';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
-const HeroNew = () => {
+const Hero = () => {
   const [current, setCurrent] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
   const [loadedVid, setLoadedVid] = useState(0);
@@ -22,59 +22,62 @@ const HeroNew = () => {
       visibility: 'visible',
       scale: 0.5,
       width: '16rem', // 64 in tailwind
-      height: '16rem',
+      height: '16rem'
     });
 
     // Create timeline for smoother animation
     const tl = gsap.timeline({
       onComplete: () => {
         setIsAnimating(false);
-        setCurrent((prev) => (prev % 4) + 1);
-
+        setCurrent(prev => (prev % 4) + 1);
+        
         // Reset next video
-        gsap.set(nextVidRef.current, {
+        gsap.set(nextVidRef.current, { 
           visibility: 'hidden',
           scale: 0.5,
           width: '16rem',
-          height: '16rem',
+          height: '16rem'
         });
-      },
+      }
     });
 
     // Add animations to timeline
-    tl.to(nextVidRef.current && smallVidRef.current, {
+    tl.to(nextVidRef.current, {
       scale: 1,
       width: '100vw',
       height: '100vh',
       duration: 1,
-      ease: 'power1.inOut',
+      ease: 'power2.inOut',
       onStart: () => {
         nextVidRef.current?.play();
-        currentVidRef.current?.play();
-      },
-    }) // Run parallel with first animation
+      }
+    })
+    .to(currentVidRef.current, {
+      scale: 0.5,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power2.inOut'
+    }, 0); // Run parallel with first animation
   };
 
   const handleVideoClick = () => {
-    triggerGSAPAnimation();
-    setTimeout(() => {
-      setCurrent((prevIndex) => (prevIndex % 4) + 1);
-      
-    }, 1000);
+    if (!isAnimating) {
+      triggerGSAPAnimation();
+    }
   };
 
   useGSAP(() => {
     // Initial setup only - don't trigger animation on load
-    gsap.set(nextVidRef.current, {
+    gsap.set(nextVidRef.current, { 
       visibility: 'hidden',
       scale: 0.5,
       width: '16rem',
-      height: '16rem',
+      height: '16rem'
     });
   });
 
   const handleVideoLoad = () => {
-    setLoadedVid((prev) => (prev % 4) + 1);
+    setLoadedVid(prev => (prev % 4) + 1);
   };
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
@@ -105,13 +108,13 @@ const HeroNew = () => {
           src={getVideoSrc((current % 4) + 1)}
           loop
           muted
-          autoPlay
           className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
           onLoadedData={handleVideoLoad}
         />
 
         {/* Current background video */}
         <video
+          ref={currentVidRef}
           src={getVideoSrc(current)}
           autoPlay
           loop
@@ -147,4 +150,4 @@ const HeroNew = () => {
   );
 };
 
-export default HeroNew;
+export default Hero;

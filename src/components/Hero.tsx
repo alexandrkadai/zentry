@@ -13,17 +13,17 @@ const Hero = () => {
   const nexVidRef = useRef<HTMLVideoElement>(null);
 
   const triggerGSAPAnimation = () => {
-    // gsap.set(nexVidRef.current, { visibility: 'visible' });
-    gsap.to(nexVidRef.current, {
+    gsap.set('#next-video', { visibility: 'visible' });
+    gsap.to('#next-video', {
       transformOrigin: 'center center',
       scale: 1,
       width: '100vw',
       height: '100vh',
       duration: 1,
       ease: 'power1.inOut',
-      onStart: () => {
-        nexVidRef.current?.play();
-      },
+      // onStart: () => {
+      //   nexVidRef.current?.play();
+      // },
     });
 
     gsap.from('#current-video', {
@@ -32,20 +32,24 @@ const Hero = () => {
       duration: 1.5,
       ease: 'power1.inOut',
     });
+
+    gsap.set('#next-video', { visibility: 'invisible' });
   };
 
   const handleVideoClick = () => {
     setClick(true);
+
     triggerGSAPAnimation();
+
     setTimeout(() => {
-      setCurrent((prevIndex) => (prevIndex % 4) + 1);
       setClick(false);
+      gsap.killTweensOf('#next-video');
+      gsap.set('#next-video', {
+        clearProps: 'all',
+      });
+      setCurrent((prevIndex) => (prevIndex % 4) + 1);
     }, 1000);
   };
-
-  // useGSAP(() => {
-  //   triggerGSAPAnimation();
-  // }, [current]);
 
   const handleVideoLoad = () => {
     setLoadedVid((prevIndex) => (prevIndex % 4) + 1);
@@ -65,12 +69,11 @@ const Hero = () => {
             className="origin-center scale-50 opacity-0 transition-all duration-500 hover:scale-100 hover:opacity-100"
           >
             <video
-              
-              src={getVideoSrc(current === 4 ? 1 : current+1)}
+              src={getVideoSrc(current === 4 ? 1 : current + 1)}
               loop
               muted
               id="current-video"
-              className="size-64 origin-center scale-150 object-cover object-center z-50"
+              className="z-50 size-64 origin-center scale-150 object-cover object-center"
               onLoadedData={handleVideoLoad}
             />
           </div>
@@ -78,23 +81,23 @@ const Hero = () => {
 
         <video
           ref={nexVidRef}
-          src={getVideoSrc(current === 4 ? 1 : current+1)}
+          src={getVideoSrc(current === 4 ? 1 : current + 1)}
           loop
           muted
           autoPlay
           id="next-video"
-          className="absolute-center  absolute size-64 object-cover object-center"
+          className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
           onLoadedData={handleVideoLoad}
         />
 
-        {/* <video
+        <video
           src={getVideoSrc(current)}
           autoPlay
           loop
           muted
-          className="absolute left-0 top-0 size-full object-cover object-center"
+          className="absolute left-0 top-0 z-10 size-full object-cover object-center"
           onLoadedData={handleVideoLoad}
-        /> */}
+        />
 
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
           Gaming
