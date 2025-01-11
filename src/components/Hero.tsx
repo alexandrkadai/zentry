@@ -5,8 +5,9 @@ import { useGSAP } from '@gsap/react';
 
 const Hero = () => {
   const [current, setCurrent] = useState(1);
-
+  const [firstCure, setFirstCur] = useState(1);
   const nexVidRef = useRef<HTMLVideoElement>(null);
+  const preloadRef = useRef<HTMLVideoElement>(null);
 
   const triggerGSAPAnimation = () => {
     gsap.set('#next-video', { visibility: 'visible' });
@@ -37,10 +38,13 @@ const Hero = () => {
   );
 
   const handleVideoClick = () => {
-  
-      setCurrent((current) =>( current % 4) + 1);
-    
-    console.log(current);
+   
+    setCurrent((current) => (current % 4) + 1);
+    setTimeout(() => {
+      setFirstCur((firstCure) => (firstCure % 4) + 1);
+    }, 900);
+   
+   
   };
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
@@ -77,7 +81,8 @@ const Hero = () => {
         />
 
         <video
-          src={getVideoSrc(current)}
+          
+          src={getVideoSrc(firstCure)}
           autoPlay
           loop
           muted
