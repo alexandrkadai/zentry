@@ -1,14 +1,10 @@
 import { useRef, useState } from 'react';
 import Button from './ui/Button';
-// import { MousePointer2 } from 'lucide';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
 const Hero = () => {
   const [current, setCurrent] = useState(1);
-  const [play, setPlay] = useState(false);
-  const [click, setClick] = useState(false);
-  const [loadedVid, setLoadedVid] = useState(0);
 
   const nexVidRef = useRef<HTMLVideoElement>(null);
 
@@ -21,9 +17,6 @@ const Hero = () => {
       height: '100vh',
       duration: 1,
       ease: 'power1.inOut',
-      // onStart: () => {
-      //   nexVidRef.current?.play();
-      // },
     });
 
     gsap.from('#current-video', {
@@ -36,23 +29,18 @@ const Hero = () => {
     gsap.set('#next-video', { visibility: 'invisible' });
   };
 
+  useGSAP(
+    () => {
+      triggerGSAPAnimation();
+    },
+    { dependencies: [current], revertOnUpdate: true }
+  );
+
   const handleVideoClick = () => {
-    setClick(true);
-
-    triggerGSAPAnimation();
-
-    setTimeout(() => {
-      setClick(false);
-      gsap.killTweensOf('#next-video');
-      gsap.set('#next-video', {
-        clearProps: 'all',
-      });
-      setCurrent((prevIndex) => (prevIndex % 4) + 1);
-    }, 1000);
-  };
-
-  const handleVideoLoad = () => {
-    setLoadedVid((prevIndex) => (prevIndex % 4) + 1);
+  
+      setCurrent((current) =>( current % 4) + 1);
+    
+    console.log(current);
   };
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
@@ -74,20 +62,18 @@ const Hero = () => {
               muted
               id="current-video"
               className="z-50 size-64 origin-center scale-150 object-cover object-center"
-              onLoadedData={handleVideoLoad}
             />
           </div>
         </div>
 
         <video
           ref={nexVidRef}
-          src={getVideoSrc(current === 4 ? 1 : current + 1)}
+          src={getVideoSrc(current)}
           loop
           muted
           autoPlay
           id="next-video"
           className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
-          onLoadedData={handleVideoLoad}
         />
 
         <video
@@ -96,7 +82,6 @@ const Hero = () => {
           loop
           muted
           className="absolute left-0 top-0 z-10 size-full object-cover object-center"
-          onLoadedData={handleVideoLoad}
         />
 
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
