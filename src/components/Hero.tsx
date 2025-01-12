@@ -2,16 +2,21 @@ import { useRef, useState } from 'react';
 import Button from './ui/Button';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/all';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const [current, setCurrent] = useState(1);
   const [firstCure, setFirstCur] = useState(1);
   const nexVidRef = useRef<HTMLVideoElement>(null);
-  const preloadRef = useRef<HTMLVideoElement>(null);
+  const currentVidRef = useRef<HTMLVideoElement>(null);
+
+  const videoFrameRef = useRef(null);
 
   const triggerGSAPAnimation = () => {
-    gsap.set('#next-video', { visibility: 'visible' });
-    gsap.to('#next-video', {
+    gsap.set(nexVidRef.current, { visibility: 'visible' });
+    gsap.to(nexVidRef.current, {
       transformOrigin: 'center center',
       scale: 1,
       width: '100vw',
@@ -20,14 +25,14 @@ const Hero = () => {
       ease: 'power1.inOut',
     });
 
-    gsap.from('#current-video', {
+    gsap.from(currentVidRef.current, {
       transformOrigin: 'center center',
       scale: 0,
       duration: 1.5,
       ease: 'power1.inOut',
     });
 
-    gsap.set('#next-video', { visibility: 'invisible' });
+    gsap.set(nexVidRef.current, { visibility: 'invisible' });
   };
 
   useGSAP(
@@ -38,21 +43,36 @@ const Hero = () => {
   );
 
   const handleVideoClick = () => {
-   
     setCurrent((current) => (current % 4) + 1);
     setTimeout(() => {
       setFirstCur((firstCure) => (firstCure % 4) + 1);
     }, 900);
-   
-   
   };
+
+  useGSAP(() => {
+    gsap.set(videoFrameRef.current, {
+      clipPath: 'polygon(14% 0%,  72% 0%, 70% 90%, 0% 100%',
+      borderRadius: '0 0 40% 10%',
+    });
+    gsap.from(videoFrameRef.current, {
+      clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
+      borderRadius: '0 0 0 0',
+      ease: 'none',
+      scrollTrigger: {
+        trigger: videoFrameRef.current,
+        start: 'center center',
+        end: 'bottom center',
+        scrub: true,
+      },
+    });
+  });
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
 
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
       <div
-        id="video-frame"
+        ref={videoFrameRef}
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
         <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
@@ -61,10 +81,11 @@ const Hero = () => {
             className="origin-center scale-50 opacity-0 transition-all duration-500 hover:scale-100 hover:opacity-100"
           >
             <video
+              ref={currentVidRef}
               src={getVideoSrc(current === 4 ? 1 : current + 1)}
               loop
               muted
-              id="current-video"
+              playsInline
               className="z-50 size-64 origin-center scale-150 object-cover object-center"
             />
           </div>
@@ -76,16 +97,16 @@ const Hero = () => {
           loop
           muted
           autoPlay
-          id="next-video"
+          playsInline
           className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
         />
 
         <video
-          
           src={getVideoSrc(firstCure)}
           autoPlay
           loop
           muted
+          playsInline
           className="absolute left-0 top-0 z-10 size-full object-cover object-center"
         />
 
@@ -104,7 +125,7 @@ const Hero = () => {
             <Button
               id="watch-trailer"
               title="Watch Trailer"
-              className="flex items-center justify-center gap-1 bg-yellow-300 p-2 font-bold"
+              className="flex items-center justify-center gap-1 bg-yellow-300 p-2 font-bold hover:bg-yellow-400"
             />
           </div>
         </div>
