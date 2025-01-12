@@ -6,7 +6,7 @@ import { useGSAP } from '@gsap/react';
 const Hero = () => {
   const [current, setCurrent] = useState(1);
   const [isAnimating, setIsAnimating] = useState(false);
-  const [loadedVid, setLoadedVid] = useState(0);
+  
 
   const currentVidRef = useRef<HTMLVideoElement>(null);
   const nextVidRef = useRef<HTMLVideoElement>(null);
@@ -76,9 +76,7 @@ const Hero = () => {
     });
   });
 
-  const handleVideoLoad = () => {
-    setLoadedVid(prev => (prev % 4) + 1);
-  };
+  
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
 
@@ -97,7 +95,7 @@ const Hero = () => {
               loop
               muted
               className="size-64 origin-center scale-150 object-cover object-center"
-              onLoadedData={handleVideoLoad}
+              
             />
           </div>
         </div>
@@ -109,7 +107,7 @@ const Hero = () => {
           loop
           muted
           className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
-          onLoadedData={handleVideoLoad}
+          
         />
 
         {/* Current background video */}
