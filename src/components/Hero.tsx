@@ -125,7 +125,7 @@ const Hero = () => {
             <Button
               id="watch-trailer"
               title="Watch Trailer"
-              className="flex items-center justify-center gap-1 bg-yellow-300 p-2 font-bold hover:bg-yellow-400"
+              className="flex gap-1 bg-yellow-300 hover:bg-yellow-400"
             />
           </div>
         </div>
