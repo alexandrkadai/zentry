@@ -57,10 +57,10 @@ const Hero = () => {
     gsap.from(videoFrameRef.current, {
       clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
       borderRadius: '0 0 0 0',
-      ease: 'none',
+      ease: 'power1.out',
       scrollTrigger: {
         trigger: videoFrameRef.current,
-        start: 'center center',
+        start: 'top top',
         end: 'bottom center',
         scrub: true,
       },
