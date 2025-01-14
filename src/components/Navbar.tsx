@@ -1,10 +1,25 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import logo from '/img/logo.png';
 import Button from './ui/Button';
-import {navLinks, type TNavLink} from '@/src/mockData/navLinks';
+import { navLinks, type TNavLink } from '@/src/mockData/navLinks';
+import audioFile from '/audio/loop.mp3';
+import { cn } from '../utils/helper';
+import {audioBarsData} from '@/src/mockData/audioBars';
 
 export default function Navbar() {
+  const [isPlay, setIsPlay] = useState(false);
   const navRef = useRef(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  const toggleAudio = () => {
+    if (!isPlay) {
+      setIsPlay(true);
+      audioRef.current!.play();
+    } else {
+      setIsPlay(false);
+      audioRef.current!.pause();
+    }
+  };
 
   return (
     <div
@@ -23,11 +38,30 @@ export default function Navbar() {
           </div>
 
           <div className="flex h-full items-center">
-            <div className="hidden md:block ">
-              {navLinks.map((item:TNavLink) => (
-                <a href="#" key={item.id} className="nav-hover-btn">{item.name}</a>
+            <div className="hidden md:block">
+              {navLinks.map((item: TNavLink) => (
+                <a href="#" key={item.id} className="nav-hover-btn">
+                  {item.name}
+                </a>
               ))}
             </div>
+            <button
+              className="ml-10 flex items-center space-x-0.5"
+              onClick={toggleAudio}
+            >
+              <audio ref={audioRef} src={audioFile} loop className="hidden" />
+
+              {audioBarsData.map((item) => (
+                <div
+                  key={item.id}
+                  style={{ animationDelay: `${item.delay}ms` }}
+                  className={cn(
+                    isPlay && 'animate-bounce ',
+                    `indicator-line delay-${item.delay}`
+                  )}
+                />
+              ))}
+            </button>
           </div>
         </nav>
       </header>
