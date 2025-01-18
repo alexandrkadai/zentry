@@ -18,8 +18,7 @@ export default function Footer() {
 
       <div className="flex justify-center gap-4  md:justify-start">
         {socialLinks.map((link, index) => ( 
-        <FooterLinks link={link} index={index}/>
-        
+        <FooterLinks link={link} index={index} key={index}/>
         ))}
       </div>
 

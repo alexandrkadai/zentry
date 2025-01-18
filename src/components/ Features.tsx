@@ -25,7 +25,7 @@ export default function Features() {
         </div>
 
         <div className="grid h-[135vh] grid-cols-2 grid-rows-4 gap-7">
-          <CardWrap className="bento-tilt_1 row-span-1 md:col-span-2 md:row-span-2">
+          <CardWrap id='vault' className="bento-tilt_1 row-span-1 md:col-span-2 md:row-span-2">
             <Card
               src="videos/feature-2.mp4"
               title="zigma"
@@ -33,7 +33,7 @@ export default function Features() {
             />
           </CardWrap>
 
-          <CardWrap className="bento-tilt_1 row-span-2 md:col-span-1 ">
+          <CardWrap id="nexus" className="bento-tilt_1 row-span-2 md:col-span-1 ">
             <Card
               src="videos/feature-3.mp4"
               title="nexus"
@@ -41,7 +41,7 @@ export default function Features() {
             />
           </CardWrap>
 
-          <CardWrap className="bento-tilt_1 row-span-2 md:col-span-1 ">
+          <CardWrap id="prologue" className="bento-tilt_1 row-span-2 md:col-span-1 ">
             <Card
               src="videos/feature-4.mp4"
               title="azbul"
@@ -49,7 +49,7 @@ export default function Features() {
             />
           </CardWrap>
 
-          <CardWrap className="bento-tilt_2">
+          <CardWrap id="soon" className="bento-tilt_2">
             <div className="flex size-full flex-col justify-between bg-violet-300 p-5 hover:bg-violet-700">
               <h2 className="text-center text-[36px] md:text-[64px] font-bold uppercase text-white">
                 More comming soon
@@ -57,7 +57,7 @@ export default function Features() {
             </div>
           </CardWrap>
 
-          <CardWrap className="bento-tilt_2">
+          <CardWrap id="last" className="bento-tilt_2">
             <video
               src="videos/feature-5.mp4"
               loop

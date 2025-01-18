@@ -78,13 +78,14 @@ const Hero = () => {
         <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
           <div
             onClick={handleVideoClick}
-            className="origin-center scale-50 opacity-0 transition-all duration-500 hover:scale-100 hover:opacity-100"
+            className="origin-center scale-50 sm:opacity-1 md:opacity-0 transition-all duration-500 hover:scale-100 hover:opacity-100"
           >
             <video
               ref={currentVidRef}
               src={getVideoSrc(current === 4 ? 1 : current + 1)}
               loop
               muted
+              autoPlay
               playsInline
               className="z-50 size-64 origin-center scale-150 object-cover object-center"
             />

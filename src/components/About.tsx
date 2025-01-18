@@ -31,7 +31,7 @@ export default function About() {
 
 
   return (
-    <div className="min-h-screen w-screen relative">
+    <section id="about" className="min-h-screen w-screen relative">
       <div className=" mb-8 mt-10 flex flex-col items-center gap-2">
         <h2 className="text- font-general text-sm font-bold uppercase md:text-[30px]">
           welcome to zentry
@@ -51,6 +51,6 @@ export default function About() {
 
       </div>
       </div>
-    </div>
+    </section>
   );
 }

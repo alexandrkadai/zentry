@@ -3,9 +3,10 @@ import { useRef, useState } from 'react';
 type CardWrapType = {
   children: React.ReactNode;
   className: string;
+  id: string;
 };
 
-export default function CardWrap({ children, className }: CardWrapType) {
+export default function CardWrap({ children, className,id }: CardWrapType) {
   const [transform, setTransform] = useState('');
   const itemRef = useRef<HTMLDivElement>(null);
 
@@ -29,6 +30,7 @@ export default function CardWrap({ children, className }: CardWrapType) {
 
   return (
     <div
+    id={id}
       className={className}
       ref={itemRef}
       onMouseMove={handleMouseMove}
