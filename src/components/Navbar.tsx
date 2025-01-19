@@ -51,7 +51,7 @@ export default function Navbar() {
           </div>
 
           <button
-            className="ml-10 flex items-center gap-1"
+            className="ml-2 md:ml-10 flex items-center gap-1"
             onClick={toggleAudio}
           >
             <audio ref={audioRef} src={audioFile} loop className="hidden" />
