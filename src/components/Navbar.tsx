@@ -37,9 +37,9 @@ export default function Navbar() {
       ref={navRef}
       className={cn(isAtTop ? "bg-none" : isScrollingUp && "bg-black","fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-700 sm:inset-x-6 rounded-md")}
     >
-      <header className="absolute top-1/2 w-full -translate-y-1/2 ">
-        <nav className="flex size-full items-center  justify-around md:justify-between p-4 ">
-          <div className="flex items-center gap-0 md:gap-7">
+      <header className="absolute top-1/2 w-full md:-translate-y-1/2 ">
+        <nav className="flex size-full items-center justify-around md:justify-between p-4 ">
+          <div className="flex items-center ">
             <img src={logo} alt="logo" className="h-16 w-16" />
             <Button
               id="navButton"
