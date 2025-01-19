@@ -32,13 +32,13 @@ export default function Navbar() {
       ref={navRef}
       className={cn(
         isAtTop ? 'bg-none' : isScrollingUp && 'bg-black',
-        'fixed z-50 h-16 w-auto rounded-md border-none transition-all duration-700'
+        'fixed z-50 h-16 w-full rounded-md border-none transition-all duration-700'
       )}
     >
-      <header className="absolute -top-4 ">
-        <nav className="flex  items-center justify-between p-4">
+      <header className="absolute -top-4 w-full">
+        <nav className="flex items-center justify-between p-4">
           <img src={logo} alt="logo" className="h-16 w-16" />
-          <div className='w-auto'>
+          <div className='flex flex-row gap-3 flex-wrap md:flex-nowrap'>
             {navLinks.map((item: TNavLink) => (
               <a
                 href={`#${item.name.toLowerCase()}`}
