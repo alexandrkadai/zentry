@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import Button from './ui/Button';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/all';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -37,7 +37,7 @@ const Hero = () => {
 
   useGSAP(
     () => {
-      triggerGSAPAnimation();
+    triggerGSAPAnimation();
     },
     { dependencies: [current], revertOnUpdate: true }
   );

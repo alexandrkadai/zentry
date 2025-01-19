@@ -35,10 +35,10 @@ export default function Navbar() {
   return (
     <div
       ref={navRef}
-      className={cn(isAtTop ? "bg-none" : isScrollingUp && "bg-black","fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-700 sm:inset-x-6 rounded-md")}
+      className={cn(isAtTop ? "bg-none" : isScrollingUp && "bg-black","fixed w-full z-50 h-16 border-none transition-all duration-700 rounded-md ")}
     >
-      <header className="absolute top-1/2 w-full md:-translate-y-1/2 ">
-        <nav className="flex size-full items-center justify-around md:justify-between p-4 ">
+      <header className="absolute -top-4 w-full ">
+        <nav className="flex size-full items-center justify-around md:justify-between p-4">
           <div className="flex items-center ">
             <img src={logo} alt="logo" className="h-16 w-16" />
             <Button
