@@ -35,8 +35,8 @@ export default function Navbar() {
         'fixed z-50 h-16 w-auto rounded-md border-none transition-all duration-700'
       )}
     >
-      <header className="absolute -top-4 w-full">
-        <nav className="flex size-full items-center justify-between p-4">
+      <header className="absolute -top-4 ">
+        <nav className="flex  items-center justify-between p-4">
           <img src={logo} alt="logo" className="h-16 w-16" />
 
           <div>
