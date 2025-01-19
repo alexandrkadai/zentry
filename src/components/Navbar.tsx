@@ -38,8 +38,7 @@ export default function Navbar() {
       <header className="absolute -top-4 ">
         <nav className="flex  items-center justify-between p-4">
           <img src={logo} alt="logo" className="h-16 w-16" />
-
-          <div className='w-auto flex-wrap'>
+          <div className='w-auto'>
             {navLinks.map((item: TNavLink) => (
               <a
                 href={`#${item.name.toLowerCase()}`}
