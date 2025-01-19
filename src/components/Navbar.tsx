@@ -36,7 +36,7 @@ export default function Navbar() {
       )}
     >
       <header className="absolute -top-4 w-full">
-        <nav className="flex items-center justify-between p-4">
+        <nav className="flex items-center justify-between p-4 gap-4">
           <img src={logo} alt="logo" className="h-16 w-16" />
           <div className='flex flex-row gap-3 flex-wrap md:flex-nowrap'>
             {navLinks.map((item: TNavLink) => (
