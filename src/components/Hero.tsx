@@ -37,7 +37,7 @@ const Hero = () => {
 
   useGSAP(
     () => {
-    triggerGSAPAnimation();
+      triggerGSAPAnimation();
     },
     { dependencies: [current], revertOnUpdate: true }
   );
@@ -78,7 +78,7 @@ const Hero = () => {
         <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
           <div
             onClick={handleVideoClick}
-            className="origin-center scale-50 sm:opacity-1 md:opacity-0 transition-all duration-500 hover:scale-100 hover:opacity-100"
+            className="sm:opacity-1 origin-center scale-50 transition-all duration-500 hover:scale-100 hover:opacity-100 md:opacity-0"
           >
             <video
               ref={currentVidRef}

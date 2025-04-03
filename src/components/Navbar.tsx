@@ -36,9 +36,9 @@ export default function Navbar() {
       )}
     >
       <header className="absolute -top-4 w-full">
-        <nav className="flex items-center justify-between p-4 gap-4">
+        <nav className="flex items-center justify-between gap-4 p-4">
           <img src={logo} alt="logo" className="h-16 w-16" />
-          <div className='flex flex-row gap-3 flex-wrap md:flex-nowrap'>
+          <div className="flex flex-row flex-wrap gap-3 md:flex-nowrap">
             {navLinks.map((item: TNavLink) => (
               <a
                 href={`#${item.name.toLowerCase()}`}
@@ -51,7 +51,7 @@ export default function Navbar() {
           </div>
 
           <button
-            className="ml-2 md:ml-10 flex items-center gap-1"
+            className="ml-2 flex items-center gap-1 md:ml-10"
             onClick={toggleAudio}
           >
             <audio ref={audioRef} src={audioFile} loop className="hidden" />

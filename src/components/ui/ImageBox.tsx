@@ -1,12 +1,12 @@
-type ImageBoxProps= {
-    src: string;
-    clipClass: string;
-}
+type ImageBoxProps = {
+  src: string;
+  clipClass: string;
+};
 
-export default function ImageBox({src, clipClass}: ImageBoxProps) {
+export default function ImageBox({ src, clipClass }: ImageBoxProps) {
   return (
     <div className={clipClass}>
-    <img src={src} />
-  </div>
-  )
+      <img src={src} />
+    </div>
+  );
 }

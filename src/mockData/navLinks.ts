@@ -1,8 +1,7 @@
-export type TNavLink ={
-    id: number;
-    name: string;
-
-}
+export type TNavLink = {
+  id: number;
+  name: string;
+};
 
 export const navLinks = [
   { id: 1, name: 'Nexus' },
